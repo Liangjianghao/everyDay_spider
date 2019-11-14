@@ -73,3 +73,5 @@ for index,detail in enumerate(myArr):
     print(arrUrl)
     getDetailUrl(filePath,arrUrl)
     # break
+
+# 代码冗余 有空优化 ufff bug
