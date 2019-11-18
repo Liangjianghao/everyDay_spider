@@ -9,8 +9,6 @@ import os
 import requests
 import json
 from scrapy.http import Request
-import pymysql
-# from scrapy.spider import Spider
 from bili_video.items import BiliVideoItem
 import time
 import random
@@ -49,6 +47,7 @@ class Myspider(scrapy.Spider):
                 'deviceType':0
             }
             url = "https://api.bilibili.com/x/web-interface/view?aid=%s" % x
+            time.sleep(1)
             yield Request(url,headers=self.headers,callback=self.parse,meta={'url':url,'videoid':x})
     def parse(self,response):
         try:
@@ -81,31 +80,31 @@ class Myspider(scrapy.Spider):
             print('正在解析第%s条视频:%s'%(idNum,videoTitle))
 
 
-            # iterm=BiliVideoItem()
-            # iterm['videoTitle']=videoTitle
-            # iterm['videoUrl']=videoUrl
-            # iterm['videoCover']=videoCover
-            # iterm['userName']=userName
-            # iterm['uploadTime']=uploadTime
-            # iterm['playNum'] = playNum
-            # iterm['danmuNum'] = danmuNum
-            # iterm['contenNum'] = contenNum
-            # iterm['saveNum'] = saveNum
-            # iterm['coinNum'] = coinNum
-            # iterm['likeNum'] = likeNum
-            # iterm['dislikeNum'] = dislikeNum
-            # iterm['shareNum'] = shareNum
-            # iterm['danmuID'] = danmuID
-            #
-            # iterm['videos'] = videos
-            # iterm['tid'] = tid
-            # iterm['tname'] = tname
-            # iterm['copyright'] = copyright
-            # iterm['duration'] = duration
-            #
-            #
-            #
-            # yield iterm
+            iterm=BiliVideoItem()
+            iterm['videoTitle']=videoTitle
+            iterm['videoUrl']=videoUrl
+            iterm['videoCover']=videoCover
+            iterm['userName']=userName
+            iterm['uploadTime']=uploadTime
+            iterm['playNum'] = playNum
+            iterm['danmuNum'] = danmuNum
+            iterm['contenNum'] = contenNum
+            iterm['saveNum'] = saveNum
+            iterm['coinNum'] = coinNum
+            iterm['likeNum'] = likeNum
+            iterm['dislikeNum'] = dislikeNum
+            iterm['shareNum'] = shareNum
+            iterm['danmuID'] = danmuID
+
+            iterm['videos'] = videos
+            iterm['tid'] = tid
+            iterm['tname'] = tname
+            iterm['copyright'] = copyright
+            iterm['duration'] = duration
+
+
+
+            yield iterm
         except Exception as e:
             # print('解析数据parse:%s'%e)
             return
